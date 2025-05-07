@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Appointment } from '../models/appointment';
 import { Patient } from '../models/patient';
@@ -25,7 +25,6 @@ export class ConfigService {
     return localStorage.getItem('token');
   }
 
-  // get the base Url
   getBaseUrl(): String{
     return this.config.base_url
   }
@@ -35,43 +34,33 @@ export class ConfigService {
     return this.http.post(user_url,{});
   }
 
-  // ****************** Admin View ******************
 
-  // get all appointments history
   getAppointmentData(): Observable<any>{
     const appointment_url = this.config.base_url + "appointments/getAllAppointments";
     return this.http.post(appointment_url,{});
   }
 
-  // update an appointment
   admin_update_appointmentData(updatedAppointment: Appointment): Observable<any>{
     const appointment_url = `${this.config.base_url}appointments/adminUpdateAppointment/`;
     return this.http.put(appointment_url, updatedAppointment);
   }
 
-  // get all patients history
   getPatientData(): Observable<any>{
     const patient_url = this.config.base_url + "patients/getAllPatients";
     return this.http.post(patient_url,{});
   }
 
-  // update patient's status expiry
   update_patient_status_expiry(updatedPatient: Patient): Observable<any>{
     const patient_url = `${this.config.base_url}patients/update_patient_status_expiry/`;
-    return this.http.put(patient_url, updatedPatient, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.getToken()}`
-      }
-    });
+    return this.http.put(patient_url, updatedPatient);
   }
-  // get all patients history
+
   getDoctorData(): Observable<any>{
     const doctor_url = this.config.base_url + "doctors/getAllDoctors";
     return this.http.post(doctor_url,{});
   }
 
-  // update doctor's status expiry
+
   update_doctor_status_expiry( updatedDoctor: Doctor): Observable<any>{
     const doctor_url = `${this.config.base_url}doctors/update_doctor_status_expiry/`;
     return this.http.put(doctor_url, updatedDoctor);
@@ -93,27 +82,24 @@ export class ConfigService {
     const admin_url = this.config.base_url + "admins/getAllAdmins";
     return this.http.post(admin_url,{});
   }
-  // update doctor's status expiry
+
   update_admin_status_expiry(updatedAdmin: Admin): Observable<any>{
       const admin_url = `${this.config.base_url}admins/update_admin_status_expiry`;
       return this.http.put(admin_url, updatedAdmin);
   }
 
-  // ****************** Doctor View & Patient View ******************
 
-  // get a doctor appointments
   getDoctorAppointments(): Observable<any>{
     const doctor_url = this.config.base_url+ 'appointments/getDoctorAppointments/';
     return this.http.post(doctor_url,{});
   }
-  // get a patient appointments
+
   getPatientAppointments(): Observable<any>{
 
     const doctor_url = this.config.base_url + 'appointments/getPatientAppointments/';
     return this.http.post(doctor_url,{});
   }
 
-  // update an appointment
   user_update_appointmentData(updatedAppointment: Appointment): Observable<any>{
     const appointment_url = `${this.config.base_url}appointments/userUpdateAppointment/`;
     return this.http.put(appointment_url, updatedAppointment);

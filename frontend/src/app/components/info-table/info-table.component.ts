@@ -49,7 +49,6 @@ export class InfoTableComponent implements OnInit {
         (response:any) => {
           this.dataSource = response;
           this.filteredData = response;
-          console.log( this.filteredData );
 
         },
         (error:any) => {
@@ -141,7 +140,6 @@ export class InfoTableComponent implements OnInit {
 
 
     const component = this.registry.getComponent(this.cpt);
-    console.log(component)
     if (!component || this.id_name === undefined) {
       console.warn(`Dialog component or ID is missing for"${this.cpt}"`);
       return;

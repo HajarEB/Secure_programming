@@ -1,5 +1,4 @@
 
-<!-- <div class="center_form"> -->
   <form #form="ngForm" autocomplete="off"  (ngSubmit)="updateProfile(form)">
     <div class="form-group" *ngFor="let field of fields">
       <label [for]="field.name">{{ field.label }}</label>
@@ -33,4 +32,3 @@
       <button class="btn btn-danger" type="submit">Update Profile</button>
     </form>
 
-<!-- </div> -->

@@ -11,14 +11,31 @@ import { fileURLToPath } from 'node:url';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 
-const app = express();
-app.use((req, res, next) => {
+
+function secureHeaders(res: express.Response){
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Content-Security-Policy', "default-src 'self'; " + "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " + "font-src 'self' https://fonts.gstatic.com; " + "connect-src 'self' https://localhost:8432;" );
+  // res.setHeader('Content-Security-Policy', "default-src 'self'; " + "style-src 'self' https://fonts.googleapis.com; " + "font-src 'self' https://fonts.gstatic.com; " + "connect-src 'self' https://localhost:8432;"+ "frame-ancestors 'none';" + "form-action 'self';");
+  res.setHeader("Cross-Origin-Resource-Policy", "same-origin");
+  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
+  res.setHeader("Permissions-Policy", "geolocation=(), camera=(), microphone=(), fullscreen=(self)");
+  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
 
+  res.removeHeader("X-Powered-By");
+}
+
+const app = express();
+
+app.use((req, res, next) => {
+  secureHeaders(res);
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate, private');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   next();
 });
+
+
 
 const angularApp = new AngularNodeAppEngine();
 
@@ -42,7 +59,11 @@ app.use(
     maxAge: '1y',
     index: false,
     redirect: false,
-  }),
+    setHeaders: (res) => {
+      secureHeaders(res);
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); //max-age = 31536000 s = 1 year
+    }
+  })
 );
 
 /**

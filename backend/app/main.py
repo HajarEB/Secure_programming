@@ -41,7 +41,7 @@ class secureHeader(BaseHTTPMiddleware):
         if request.url.path == "/docs":  # to allow only FASTAPI UI
             return response
         response.headers["X-Frame-Options"] = "SAMEORIGIN" # Missing Anti-clickjacking Header
-        response.headers["Content-Security-Policy"] = "default-src 'self';" "script-src 'self';" "font-src 'self'; " "connect-src 'self';" #  Content Security Policy (CSP) Header Not Set
+        response.headers["Content-Security-Policy"] = "default-src 'self';" "script-src 'self';" "font-src 'self'; " "connect-src 'self';" "frame-ancestors 'none';" "form-action 'self';" #  Content Security Policy (CSP) Header Not Set
         response.headers["Cross-Origin-Resource-Policy"] = "same-origin" # 	Insufficient Site Isolation Against Spectre Vulnerability
         response.headers["Cross-Origin-Embedder-Policy"] = "require-corp"
         response.headers["Cross-Origin-Opener-Policy"] = "same-origin"
