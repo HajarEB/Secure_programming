@@ -71,8 +71,8 @@
             "development": {
               "buildTarget": "app:build:development",
               "ssl": true,
-              "sslKey":"../Certificate/key.pem",
-              "sslCert":"../Certificate/cert.pem"
+              "sslKey":"./Certificate/key.pem",
+              "sslCert":"./Certificate/cert.pem"
             }
           },
           "defaultConfiguration": "development"

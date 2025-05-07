@@ -1,6 +1,6 @@
 # === Frontend (Angular) Build ===
 FROM node:22-slim AS build
-WORKDIR /HospitalApp/frontend
+WORKDIR /Secure_programming/frontend
 COPY . .
 
 RUN npm cache clean --force && npm install

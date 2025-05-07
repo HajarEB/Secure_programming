@@ -84,8 +84,8 @@ if __name__ == "__main__":
     app,
     host="0.0.0.0",
     port = 8432,
-    ssl_keyfile="../../Certificate/key.pem", 
-    ssl_certfile="../../Certificate/cert.pem",
+    ssl_keyfile="../Certificate/key.pem", 
+    ssl_certfile="../Certificate/cert.pem",
     lifespan="on",
 )
     

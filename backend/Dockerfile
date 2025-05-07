@@ -1,5 +1,5 @@
 FROM python:3.13.2-slim
-WORKDIR /HospitalApp/backend
+WORKDIR /Secure_programming/backend
 
 # Install backend dependencies
 COPY requirements.txt .
@@ -9,5 +9,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Run backend
-WORKDIR /HospitalApp/backend/app/
+WORKDIR /Secure_programming/backend/app/
 CMD ["python", "main.py"]
