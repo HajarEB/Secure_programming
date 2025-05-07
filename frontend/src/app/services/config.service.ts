@@ -17,7 +17,7 @@ export class ConfigService {
   private config: any;
   constructor(private http: HttpClient){
     this.config = {
-      "base_url": "https://localhost:8432/",
+      "base_url": "https://backend:8432/",
     };
   }
 
